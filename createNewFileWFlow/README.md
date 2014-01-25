@@ -1,4 +1,4 @@
-creatNewFileWFlow
+createNewFileWFlow
 =================
 `Finder.app`の右(副ボタン)クリックで新規フォルダは作成できるけれど、新規ファイルの作成ができなかったのでワークフローを作ってみました。  
 
