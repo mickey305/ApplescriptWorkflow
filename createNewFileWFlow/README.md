@@ -8,8 +8,8 @@ Finderの右クリック（副ボタン）で新規フォルダは作成でき�
 ```applescript
 property defaultFileName : "名称未設定"
 property defaultExt : ".txt"
-
+-- 拡張子切り出しプログラムの保存場所を変更した場合はこのパスも変更する
 property fDivPath : "Macintosh HD:Users:◯◯◯◯◯:Desktop:divFileStrExt.app"
-
+-- プログラム最大走行時間(s) -- 超えるとプロセスが無効化される
 property FinTime : 2 * 60
 ```
