@@ -8,7 +8,7 @@ creatNewFileWFlow
 ### 使い方 ###
 -------------
 * ディレクトリ`subRoutine`内の`divFileStrExt.app`をデスクトップに保存する ([divFileStrExt.app][sub])
-	* `divFileStrExt.app`は、次の方法でデスクトップに保存する
+	* `divFileStrExt.app`は、次の何れかの方法でデスクトップに保存する
 		1. `ターミナル.app`のコマンド`git`でクローンを作成してクローン内のアプリケーションをコピペする
 		2. [mainfApp.applescript][appsc]の内容を全体を選択してからコピーし、`AppleScriptエディタ.app`で新規ファイル内にペーストした後、保存時に名前を`divFileStrExt`拡張子を`.app`としてデスクトップに保存する。拡張子は、**選択欄**から選択して変更する。
 
