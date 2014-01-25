@@ -6,9 +6,9 @@ creatNewFileWFlow
     ファイルの作成場所はファインダーのウィンドウが表示されている場合（Dockに格納されている場合も）、そのウィンドウが表示しているパスに保存される。  
     ウィンドウが表示されていない場合は、デスクトップ上に作成される。
 ### 使い方 ###
-* ディレクトリ`subRoutine`内の`divFileStrExt.app`をデスクトップにコピペする
+* ディレクトリ`subRoutine`内の`divFileStrExt.app`をデスクトップにコピペする [divFileStrExt.app][sub]
 
-* ディレクトリ`src`内の`main.applescript`の内容の**以下の部分を修正**する  
+* ディレクトリ`src`内の`main.applescript`の内容の**以下の部分を修正**する [main.applescript][main]
 	* `property fDivPath : `以降のパス指定を上記の関数プログラム`divFileStrExt.app`を置いた箇所までの絶対パスで記述する  
 	* デスクトップ上に置いた場合は、以下のコード内の◯の部分のみだけ修正する
 
@@ -36,3 +36,6 @@ property FinTime : 2 * 60
 * 名前を「新規ファイル」として保存すると`Finder.app`でファイルもしくはフォルダ上にカーソルがある状態で右クリックをすると「新規ファイル」という項目が現れているので新規ファイルを作成することができる。また、割り当てられていないショートカットを使う場合には、システム環境設定のキーボード設定でこのサービスのショートカットを作成できる。
 
 * 上記の操作で作成された「新規ファイル.workflow」は隠しフォルダ内`/Users/ユーザ名/Library/Services/`に作成される。
+
+[sub]: https://github.com/mickey305/ApplescriptWorkflow/tree/master/createNewFileWFlow/subRoutine
+[main]: https://github.com/mickey305/ApplescriptWorkflow/blob/master/createNewFileWFlow/src/main.applescript
