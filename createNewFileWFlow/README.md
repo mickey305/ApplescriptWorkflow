@@ -6,12 +6,12 @@ creatNewFileWFlow
     ファイルの作成場所はファインダーのウィンドウが表示されている場合（Dockに格納されている場合も）、そのウィンドウが表示しているパスに保存される。  
     ウィンドウが表示されていない場合は、デスクトップ上に作成される。
 ### 使い方 ###
-* ディレクトリ`subRoutine`内の`divFileStrExt.app`をデスクトップに保存する [divFileStrExt.app][sub]
+* ディレクトリ`subRoutine`内の`divFileStrExt.app`をデスクトップに保存する ([divFileStrExt.app][sub])
 	* `divFileStrExt.app`は、次の方法でデスクトップに保存する
 		1. `ターミナル.app`のコマンド`git`でクローンを作成してクローン内のアプリケーションをコピペする
 		2. [main.scpt][appsc]の内容を全体を選択してからコピーし、`AppleScriptエディタ.app`で新規ファイル内にペーストした後、保存時に名前を`divFileStrExt`拡張子を`.app`としてデスクトップに保存する。拡張子は、**選択欄**から選択して変更する。
 
-* ディレクトリ`src`内の`main.applescript`の内容の**以下の部分を修正**する [main.applescript][main]
+* ディレクトリ`src`内の`main.applescript`の内容の**以下の部分を修正**する ([main.applescript][main])
 	* `property fDivPath : `以降のパス指定を上記の関数プログラム`divFileStrExt.app`を置いた箇所までの絶対パスで記述する  
 	* デスクトップ上に置いた場合は、以下のコード内の◯の部分のみだけ修正する
 
