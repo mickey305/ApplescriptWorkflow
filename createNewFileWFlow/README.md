@@ -38,6 +38,7 @@ property FinTime : 2 * 60
 
 * 名前を「新規ファイル」として保存すると`Finder.app`でファイルもしくはフォルダ上にカーソルがある状態で右クリックをすると「新規ファイル」という項目が現れているので新規ファイルを作成することができる。また、割り当てられていないショートカットを使う場合には、システム環境設定のキーボード設定でこのサービスのショートカットを作成できる。
 
+### 保存場所 ###
 * 上記の操作で作成された「新規ファイル.workflow」は隠しフォルダ内`/Users/ユーザ名/Library/Services/`に作成される。
 
 [sub]: https://github.com/mickey305/ApplescriptWorkflow/tree/master/createNewFileWFlow/subRoutine
