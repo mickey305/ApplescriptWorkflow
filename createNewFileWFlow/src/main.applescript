@@ -14,15 +14,16 @@ on run {input, parameters}
 	with timeout of FinTime seconds
 		
 		-- setting path
+		-- パスを指定する場合にはchoose folder命令が使える
 		try
 			tell application "Finder" to set the sourceFolder to (folder of the front window) as alias
 		on error
-			-- no open folder windows
+			-- no open folder windows（デフォルト：デスクトップ）
 			set the sourceFolder to path to desktop folder as alias
 		end try
 		
 		
-		-- setting parameters
+		-- 変数
 		set flagFileExists to true
 		set indexFile to ""
 		set indexPoint to " "
