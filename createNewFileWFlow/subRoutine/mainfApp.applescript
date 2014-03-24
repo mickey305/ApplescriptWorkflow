@@ -5,7 +5,7 @@
 	
 pluseの数値が０の場合はsourceのファイル名（拡張子なし）を出力
 pluseの数値が１の場合はsourceの拡張子（.html/.txt/.c  et cetera）を出力
-pluseの値が０、１以外の場合はエラーを表示し、nullを出力
+
 
 *)
 
@@ -36,8 +36,8 @@ on run {source, pulse}
 		
 		
 	on error
-		display alert return & "Error"
-		return null
+		--display alert return & "Error"
+		return ""
 	end try
 end run
 
