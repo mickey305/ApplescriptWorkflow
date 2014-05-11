@@ -1,4 +1,4 @@
-createNewFileWFlow
+createNewFileWFlow - Beta
 =================
 `Finder.app`の右(副ボタン)クリックで新規フォルダは作成できるけれど、新規ファイルの作成ができなかったのでワークフローを作ってみました。  
 
@@ -8,6 +8,7 @@ createNewFileWFlow
 ### 追記 ###
 -----------
 * OS X 10.9 Marvericksで動作するかはわかりません
+* βバージョンにわからないくらい少しの修正をしました
 
 ### 使い方 ###
 -------------
@@ -24,10 +25,14 @@ createNewFileWFlow
 property defaultFileName : "名称未設定"
 property defaultExt : ".txt"
 
--- 拡張子切り出しプログラムの保存場所を変更した場合はこのパスも変更する
-property fDivPath : "Macintosh HD:Users:◯◯◯◯◯:Desktop:divFileStrExt.app"
+-- ホームディレクトリのパス
+property HomePath : "Macintosh HD:Users:◯◯◯◯:"
 
--- プログラム最大走行時間(s) -- 超えるとプロセスが無効化される
+-- 拡張子切り出しプログラムの保存場所を変更した場合はこのパスも変更する
+property fDivPath : "Macintosh HD:Users:◯◯◯◯:Desktop:divFileStrExt.app"
+
+-- 最大アイドル時間(s) -- 超えるとプロセスが無効化される
+-- デフォルト：2分
 property FinTime : 2 * 60
 
 (*
@@ -37,7 +42,7 @@ property FinTime : 2 * 60
   
 * 修正した`main.applescript`の内容を全選択し、コピーする
 
-* `Automator.app`を起動し、最初の画面で**サービス**を選択する。その後、右上にある選択欄で**「ファイルまたはフォルダ」**を選択する。次に、左側にある**「ライブラリ」**の中の**「ユーティリティ」**を選択し、右側に現れた**「AppleScriptを実行」**と書かれた項目を選択し、右側のスペースにドラッグ＆ドロップする。![workflow](work.png)この中に先程コピーした`main.applescript`の内容をペーストする。次に、ハンマーのアイコンをクリックしてコンパイルを実行する。
+* `Automator.app`を起動し、最初の画面で**サービス**を選択する。その後、右上にある選択欄で**「ファイルまたはフォルダ」**を選択する。次に、左側にある**「ライブラリ」**の中の**「ユーティリティ」**を選択し、右側に現れた**「AppleScriptを実行」**と書かれた項目を選択し、右側のスペースにドラッグ＆ドロップする。<!--![workflow](work.png)-->この中に先程コピーした`main.applescript`の内容をペーストする。次に、ハンマーのアイコンをクリックしてコンパイルを実行する。
   
 **もしコンパイルが正しく実行されたら...**
 
@@ -47,6 +52,6 @@ property FinTime : 2 * 60
 ---------------
 * 上記の操作で作成された「新規ファイル.workflow」は隠しフォルダ内`/Users/ユーザ名/Library/Services/`に作成される。
 
-[sub]: https://github.com/mickey305/ApplescriptWorkflow/tree/master/createNewFileWFlow/subRoutine
-[main]: https://github.com/mickey305/ApplescriptWorkflow/blob/master/createNewFileWFlow/src/main.applescript
-[appsc]: https://github.com/mickey305/ApplescriptWorkflow/blob/master/createNewFileWFlow/subRoutine/mainfApp.applescript
+[sub]: https://github.com/mickey305/ApplescriptWorkflow/tree/betaversion/createNewFileWFlow/subRoutine
+[main]: https://github.com/mickey305/ApplescriptWorkflow/blob/betaversion/createNewFileWFlow/src/main.applescript
+[appsc]: https://github.com/mickey305/ApplescriptWorkflow/blob/betaversion/createNewFileWFlow/subRoutine/mainfApp.applescript
