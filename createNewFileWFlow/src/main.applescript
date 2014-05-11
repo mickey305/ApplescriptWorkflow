@@ -1,39 +1,50 @@
 property defaultFileName : "名称未設定"
 property defaultExt : ".txt"
 
--- 拡張子切り出しプログラムの保存場所を変更した場合はこのパスも変更する
-property fDivPath : "Macintosh HD:Users:◯◯◯◯◯:Desktop:divFileStrExt.app"
+-- ホームディレクトリのパス
+property HomePath : "Macintosh HD:Users:◯◯◯◯:"
 
--- プログラム最大走行時間(s) -- 超えるとプロセスが無効化される
+-- 拡張子切り出しプログラムの保存場所を変更した場合はこのパスも変更する
+property fDivPath : "Macintosh HD:Users:◯◯◯◯:Desktop:divFileStrExt.app"
+
+-- 最大アイドル時間(s) -- 超えるとプロセスが無効化される
+-- デフォルト：2分
 property FinTime : 2 * 60
 
 
 on run {input, parameters}
 	
-	-- 指定時間が経過するとこの部分のプログラムを抜ける
+	-- 指定アイドル時間が経過するとこの部分のプログラムを抜ける
 	with timeout of FinTime seconds
 		
-		-- setting path
-		-- パスを指定する場合にはchoose folder命令が使える
+		
+		
+		-- setting path & parameters
 		try
-			tell application "Finder" to set the sourceFolder to (folder of the front window) as alias
+			tell application "Finder"
+				set the sourceFolder to (folder of the front window) as alias
+			end tell
+			set finder_window_flag to true
 		on error
-			-- no open folder windows（デフォルト：デスクトップ）
+			-- no open folder windows
 			set the sourceFolder to path to desktop folder as alias
+			set finder_window_flag to false
 		end try
-		
-		
-		-- 変数
 		set flagFileExists to true
 		set indexFile to ""
 		set indexPoint to " "
 		set addInfoPGraph to ""
 		--set addInfoPGraph to return & return & "次のような形式のファイルの作成はできません。" & return & "  -  .htpasswdのような隠しファイル" & return & "  -  拡張子の存在しないファイル" & return & "  ただし、このワークフロー中の拡張子をつけないとコメントされている行を有効にすると拡張子が取り除かれる"
 		set DLogInfo to "新規ファイル名を入力 (有効時間 " & FinTime / 60 & "分)" & addInfoPGraph
-		set directoryInfo to "ファイル作成場所 : " & return & sourceFolder
+		set directoryInfo to "ファイル作成場所 : " & return & POSIX path of sourceFolder
+		---------- button definition ----------
 		set Btn1 to "キャンセル"
 		set Btn2 to "作成"
-		
+		set BtnMore to "作成場所を変更"
+		----------------------------------------
+		set chgpathmsg to "ファイルを作成するフォルダを指定して下さい"
+		set fstloop_flag to true
+		set newFileName to defaultFileName & defaultExt
 		
 		
 		
@@ -41,12 +52,31 @@ on run {input, parameters}
 		try
 			
 			
-			tell me
-				activate
-				set InfoDialog to (display dialog DLogInfo & return & return & directoryInfo default answer "" & defaultFileName & defaultExt buttons {Btn1, Btn2} default button 2 giving up after FinTime)
-				set newFileName to text returned of InfoDialog
-				set dialog_info to button returned of InfoDialog
-			end tell
+			repeat while fstloop_flag
+				
+				
+				tell me
+					activate
+					set InfoDialog to (display dialog DLogInfo & return & return & directoryInfo default answer "" & newFileName buttons {Btn1, BtnMore, Btn2} default button 3 giving up after FinTime)
+					set newFileName to text returned of InfoDialog
+					set dialog_info to button returned of InfoDialog
+				end tell
+				
+				set fstloop_flag to false
+				
+				if dialog_info is "作成場所を変更" then
+					try
+						set sourceFolder to choose folder with prompt chgpathmsg
+						set directoryInfo to "ファイル作成場所 : " & return & POSIX path of sourceFolder
+					end try
+					set fstloop_flag to true
+				end if
+				
+				
+			end repeat
+			
+			
+			
 			
 			-- 入力されたパラメータをdivFileStrExt関数に渡す
 			set newExtend to run script file fDivPath with parameters {newFileName, 1} in "AppleScript"
@@ -58,7 +88,7 @@ on run {input, parameters}
 			
 			
 			-- 重複するファイルが存在すればファイル名のインデックスを+1する
-			-- ただし、インデックスが1の場合はインデックスが省略される
+			-- ただし、インデックスが1の場合はファイル作成時にインデックスが省略される
 			repeat while flagFileExists
 				set indexFile to (indexFile + 1)
 				tell application "Finder"
@@ -101,23 +131,53 @@ on run {input, parameters}
 			
 			
 			
-			
 			-- "作成"ボタンが押された場合
 			if dialog_info is "作成" then
 				-- create new file
 				if not flagFileExists then
-					set touchScript to "touch " & quoted form of (POSIX path of newFile)
-					do shell script touchScript
-					--このコメントを外すとアプリを起動
-					--set openScript to "open " & quoted form of (POSIX path of newFile)
-					--do shell script openScript
+					--display dialog newFile & return & HomePath
+					if newFile begins with HomePath then
+						set touchScript to "touch " & quoted form of (POSIX path of newFile)
+						do shell script touchScript
+						
+						--このコメントを外すとアプリを起動
+						--set openScript to "open " & quoted form of (POSIX path of newFile)
+						--do shell script openScript
+						
+					else
+						set touchScriptAdmin to "touch " & quoted form of (POSIX path of newFile)
+						do shell script touchScriptAdmin password "" with administrator privileges
+						
+						--このコメントを外すとアプリを起動
+						--set openScriptAdmin to "open " & quoted form of (POSIX path of newFile)
+						--do shell script openScriptAdmin password "" with administrator privileges
+						
+					end if
 				else
 					display dialog "file already exists"
 				end if
 			end if
 			
 			
+			
 		end try
+		
+		
+		-- Finderを最前に移動
+		-- 作成するフォルダのパスを変更した場合は、新しくFinderのウィンドウが開く
+		if finder_window_flag then
+			tell application "Finder"
+				activate
+				-- 作成したファイルがあれば選択
+				try
+					select file newFile
+				end try
+			end tell
+			--else
+			
+		end if
+		
+		
 		
 		
 	end timeout
